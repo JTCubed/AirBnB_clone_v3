@@ -23,13 +23,13 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    #    if getenv('HBNB_API_HOST', '0.0.0.0'):
-    #        host1 = getenv('HBNB_API_HOST')
-    #    else:
-    host1 = '0.0.0.0'
-    port1 = 5000
-    #    if getenv('HBNB_API_PORT'):
-    #        port1 = int(getenv('HBNB_API_PORT'))
-    #    else:
-
-    app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
+    if getenv('HBNB_API_HOST', '0.0.0.0'):
+        host1 = getenv('HBNB_API_HOST')
+    else:
+        host1 = '0.0.0.0'
+    
+    if getenv('HBNB_API_PORT'):
+        port1 = int(getenv('HBNB_API_PORT'))
+    else:
+        port1 = 5000
+    app.run(host=host1, port=port1, threaded=True)
