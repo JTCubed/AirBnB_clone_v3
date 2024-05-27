@@ -19,10 +19,17 @@ for i, v in all_obj.items():
     dict['name'] = v.name
     dict['updated_at'] = v.updated_at
     ls.append(dict)
-print(ls)
+#print(ls)
 
 fr = []
 for key in all_obj.values():
     stated = key.to_dict()
     fr.append(stated)
-print(f"FR {fr}")
+#print(f"FR {fr}")
+
+
+new = State()
+name = {'name': 'Carlifornia'}
+for u, o in name.items():
+    setattr(new, u, o)
+print(new)
