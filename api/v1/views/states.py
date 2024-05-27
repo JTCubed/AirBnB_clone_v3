@@ -10,7 +10,6 @@ from flask import request
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
-# @app_views.route('/states/', methods=['GET'], strict_slashes=False)
 def states_cls():
     """
     returns all state instances,
@@ -45,7 +44,7 @@ def get_state(state_id):
 
 @app_views.route('/states/<string:state_id>', methods=['DELETE'])
 def delete(state_id):
-    """ """
+    """deletes a state instance"""
     dict = {}
     state = storage.get(State, state_id)
     if state is None:
@@ -55,8 +54,8 @@ def delete(state_id):
 
 
 @app_views.route('/states/', methods=['POST'], strict_slashes=False)
-def put_state():
-    """ """
+def post_state():
+    """creates a new state and returns it"""
     new_state = State()
     data = request.get_json()
     for k, v in data.items():
