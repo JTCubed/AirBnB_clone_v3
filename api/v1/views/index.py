@@ -12,7 +12,6 @@ from models.user import User
 from models.amenity import Amenity
 
 
-
 @app_views.route('/status', methods=['GET'])
 def status():
     """returns the status"""
@@ -24,7 +23,8 @@ def status():
 def num_objects():
     """returns number of each class objects"""
     clas_lis = [Amenity, City, Place, Review, State, User]
-    clas_lis_k = ["amenities", "cities", "places", "reviews", "states", "users"]
+    clas_lis_k = ["amenities", "cities", "places", "reviews",
+                  "states", "users"]
     j = 0
     dict = {}
     for i in clas_lis:
