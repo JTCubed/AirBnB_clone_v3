@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+
+from models import storage
+from models.place import Place
+from models.review import Review
+from models.city import City
+from models.state import State
+from models.user import User
+from models.amenity import Amenity
+
+
+objs = storage.count()
+print(f"all: {objs}")
+print(f"state: {storage.count(State)}")
+print(f"City: {storage.count(City)}")
+
+clas_lis = [Amenity, City, Place, Review, State, User]
+clas_lis_k = ["amenities", "cities", "places", "reviews", "states", "users"]
+dict = {}
+h = 0
+for i in clas_lis:
+    dict[clas_lis_k[h]] = storage.count(i)
+    h += 1
+print(dict)
