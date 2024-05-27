@@ -8,17 +8,21 @@ from models.state import State
 from models.user import User
 from models.amenity import Amenity
 
-
-objs = storage.count()
-print(f"all: {objs}")
-print(f"state: {storage.count(State)}")
-print(f"City: {storage.count(City)}")
-
-clas_lis = [Amenity, City, Place, Review, State, User]
-clas_lis_k = ["amenities", "cities", "places", "reviews", "states", "users"]
+ls = []
+obj_lis = [Amenity, City, Place, Review, State, User]
+all_obj = storage.all(State)
 dict = {}
-h = 0
-for i in clas_lis:
-    dict[clas_lis_k[h]] = storage.count(i)
-    h += 1
-print(dict)
+for i, v in all_obj.items():
+    dict['__class__'] = v.__class__.__name__
+    dict['created_at'] = v.created_at
+    dict['id'] = v.id
+    dict['name'] = v.name
+    dict['updated_at'] = v.updated_at
+    ls.append(dict)
+print(ls)
+
+fr = []
+for key in all_obj.values():
+    stated = key.to_dict()
+    fr.append(stated)
+print(f"FR {fr}")

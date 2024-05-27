@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+"""views for the State class"""
+
+from api.v1.views import app_views
+from flask import jsonify
+from models import storage
+from models.state import State
+
+
+@app_views.route('/states', methods=['GET'])
+@app_views.route('/states/', methods=['GET'])
+@app_views.route('/states/<state_id>', methods=['GET', 'DELETE'])
+def states_cls(state_id):
+    """
+    returns all state instances,
+    a single state instance by if,
+    404 if not found
+    """
+    

@@ -32,4 +32,4 @@ if __name__ == '__main__':
     else:
         port1 = 5000
 
-    app.run(host=host1, port=port1, threaded=True)
+    app.run(host=host1, port=port1, threaded=True, debug=True)
