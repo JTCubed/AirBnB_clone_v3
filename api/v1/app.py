@@ -27,7 +27,6 @@ if __name__ == '__main__':
         host1 = getenv('HBNB_API_HOST')
     else:
         host1 = '0.0.0.0'
-    
     if getenv('HBNB_API_PORT'):
         port1 = int(getenv('HBNB_API_PORT'))
     else:
