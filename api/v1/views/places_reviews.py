@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Reviews api for all default RESTFul API actions"""
 
-
 from api.v1.views import app_views
 from models.review import Review
 from flask import jsonify, request, abort

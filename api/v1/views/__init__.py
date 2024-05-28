@@ -8,3 +8,4 @@ from .index import *
 from .states import *
 from .cities import *
 from .amenities import *
+from .place_reviews import *

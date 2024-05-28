@@ -1,0 +1,22 @@
+#!/usr/bin/python3
+def is_documented(module):
+    documented = True
+
+    if not module.__doc__:
+        documented = False
+
+        for name in dir(module):
+            obj = getattr(module, name)
+            if callable(obj) and not obj.__doc__:
+                documented = False
+                break
+
+            return documented
+
+        # Usage
+import app
+
+if is_documented(your_module):
+    print("The module is documented.")
+else:
+    print("The module is not fully documented.")
