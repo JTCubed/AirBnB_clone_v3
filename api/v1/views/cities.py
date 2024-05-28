@@ -49,6 +49,9 @@ def delete_city(city_id):
 def post_city(state_id):
     """creates a new state and returns it"""
     data = request.get_json(silent=True)
+    state = storage.get(State, state_id)
+    if state is None:
+        return jsonify({"error": "Not a JSON"}), 404
     if data is None:
         return (jsonify({"error": "Not a JSON"}), 400)
     if 'name' not in request.json:
@@ -68,6 +71,10 @@ def post_city(state_id):
 @app_views.route('/cities/<city_id>',
                  methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
+    """updates city instance"""
+    header = request.headers.get('Content-Type')
+    if header != "application/json":
+        return jsonify({"error": "Not a JSON"}), 400
     if city_id is None:
         abort(404)
     data = request.get_json()
