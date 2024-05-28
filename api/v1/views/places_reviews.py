@@ -9,7 +9,7 @@ from models.place import Place
 
 
 @app_views.route('/places/<place_id>/reviews',
-                 methods=["GET"], strict_slashes=False)
+                 methods=['GET'], strict_slashes=False)
 def get_place_r(place_id):
     """returns a review by place_id"""
     place = storage.get(Place, place_id)
@@ -24,7 +24,7 @@ def get_place_r(place_id):
 
 
 @app_views.route('/reviews/<review_id>',
-                 methods=["GET"], strict_slashes=False)
+                 methods=['GET'], strict_slashes=False)
 def get_rev(review_id):
     """return a review or 404 if not found"""
     rev = storage.get(Review, review_id)
@@ -34,8 +34,8 @@ def get_rev(review_id):
     return jsonify(rev.to_dict()), 200
 
 
-@app_views.route("/reviews/<review_id>",
-                 methods=["GET"], strict_slashes=False)
+@app_views.route('/reviews/<review_id>',
+                 methods=['GET'], strict_slashes=False)
 def del_rev(review_id):
     """deletes a review"""
     rev = storage.get(Review, review_id)
