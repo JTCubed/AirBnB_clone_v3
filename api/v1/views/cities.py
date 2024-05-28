@@ -46,9 +46,10 @@ def delete_city(city_id):
 
 @app_views.route('/states/<state_id>/cities',
                  methods=['POST'], strict_slashes=False)
-def post_city():
+def post_city(state_id):
     """creates a new state and returns it"""
-    if request.json is None:
+    data = request.get_json(silent=True)
+    if data is None:
         return (jsonify({"error": "Not a JSON"}), 400)
     if 'name' not in request.json:
         return make_response(jsonify({"error": "Missing name"}), 400)
