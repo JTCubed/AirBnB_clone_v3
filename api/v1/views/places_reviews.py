@@ -37,7 +37,7 @@ def get_rev(review_id):
 @app_views.route('/reviews/<review_id>',
                  methods=['GET'], strict_slashes=False)
 def del_rev(review_id):
-    """deletes a review"""
+    """deletes a review by <review_id>"""
     rev = storage.get(Review, review_id)
     if rev is None:
         abort(404)
@@ -50,7 +50,7 @@ def del_rev(review_id):
 @app_views.route('/places/<place_id>/reviews',
                  methods=['POST'], strict_slashes=False)
 def create_rev(place_id):
-    """creates a new review"""
+    """creates a new review by place_id"""
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
@@ -83,7 +83,7 @@ def create_rev(place_id):
 @app_views.route('/reviews/<review_id>',
                  methods=['PUT'], strict_slashes=False)
 def update_rev(review_id):
-    """updates the review"""
+    """updates the review by <review_id>"""
     rev = storage.get(Review, review_id)
     if rev is None:
         abort(404)
