@@ -38,11 +38,16 @@ def delete_amenity(amenity_id):
 @app_views.route('/amenities', methods=['POST'])
 def create_amenity():
     """ Creates a Amenity """
+    header = request.headers.get("Content-Type")
+    if header != "application/json":
+        return jsonify({"error": "Not a JSON"}), 404
     if not request.json:
         return jsonify({"error": "Not a JSON"}), 400
     if 'name' not in request.json:
         return jsonify({"error": "Missing name"}), 400
-    amenity = Amenity(**request.json)
+    amenity = request.get_json()
+    if 'name' not in amenity:
+        return jsonify({"error": "Missing name"}), 400
     amenity.save()
     return jsonify(amenity.to_dict()), 201
 
@@ -50,6 +55,9 @@ def create_amenity():
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'])
 def update_amenity(amenity_id):
     """ Updates a Amenity object """
+    header = request.headers.get("Content-Type")
+    if header != "application/json":
+        return jsonify({"error": "Not a JSON"}), 400
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
