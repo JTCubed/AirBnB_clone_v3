@@ -94,7 +94,7 @@ def update_rev(review_id):
         return jsonify({'error': 'Not a JSON'}), 400
     header = request.headers.get('Content-Type')
     if header != "application/json":
-        return jsonify({'error':'Not a JSON'})
+        return jsonify({'error': 'Not a JSON'})
 
     for k, v in resp.items():
         if k not in ["id", "user_id", "place_id",
