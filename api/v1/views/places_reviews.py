@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Reviews api"""
+"""Reviews api for all default RESTFul API actions"""
 
 
 from api.v1.views import app_views
