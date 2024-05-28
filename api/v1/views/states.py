@@ -93,8 +93,8 @@ def update_state(state_id=None):
     if obj is None:
         abort(404)
     for k, v in obj.items():
-        if obj[k] != 'id' or obj[
-                k] != 'created_at' or obj[k] != ['updated_at']:
-            obj[k] = v
+        if key not in ['id', 'state_id',
+                       'created_at', 'updated_at']:
+            setattr(obj, key, value)
     storage.save()
     return (obj), 200
