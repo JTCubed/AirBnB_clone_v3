@@ -40,7 +40,7 @@ def create_amenity():
     """ Creates a Amenity """
     header = request.headers.get("Content-Type")
     if header != "application/json":
-        return jsonify({"error": "Not a JSON"}), 404
+        return jsonify({"error": "Not a JSON"}), 400
     if not request.json:
         return jsonify({"error": "Not a JSON"}), 400
     if 'name' not in request.json:
@@ -50,7 +50,7 @@ def create_amenity():
         return jsonify({"error": "Missing name"}), 400
     inst = Amenity()
     setattr(inst, 'name', amenity['name'])
-    return jsonify(amenity.to_dict()), 201
+    return jsonify(inst.to_dict()), 201
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'])
