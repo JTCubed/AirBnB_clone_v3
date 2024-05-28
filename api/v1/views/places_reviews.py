@@ -23,7 +23,7 @@ def get_place_r(place_id):
     return jsonfy(lis.to_dict), 200
 
 
-@app_views.route("/reviews/<review_id>",
+@app_views.route('/reviews/<review_id>',
                  methods=["GET"], strict_slashes=False)
 def get_rev(review_id):
     """return a review or 404 if not found"""
