@@ -74,3 +74,22 @@ def post_state():
     response.headers['Content-Type'] = 'application/json'
 
     return jsonify(new_state.to_dict())
+
+
+@app_views.route('/states/<string:state_id>',
+                 methods=['PUT'], strict_slashes=False)
+def update_state(state_id=None):
+    if state_id is None:
+        abort(404)
+    data = request.get_json()
+    if data is None:
+        raise ValueError("Not a JSON")
+    obj = storage.get(State, state_id)
+    if obj is None:
+        abort(404)
+    for k, v in obj.items():
+        if obj[k] != 'id' or obj[
+                k] != 'created_at' or obj[k] != ['updated_at']:
+            obj[k] = v
+    storage.save()
+    return (obj)

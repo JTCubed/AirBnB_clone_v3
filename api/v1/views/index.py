@@ -2,7 +2,7 @@
 """index file for the app"""
 
 from api.v1.views import app_views
-#from api.v1.app import app
+# from api.v1.app import app
 from flask import jsonify
 from models import storage
 from models.place import Place
@@ -34,7 +34,7 @@ def num_objects():
     return jsonify(dict)
 
 
-#@app.errorhandler(404)
-#def page_not_found(e):
+# @app.errorhandler(404)
+# def page_not_found(e):
 #    """return json error: not found"""
 #    return jsonify({"error": "Not found"}), 404
