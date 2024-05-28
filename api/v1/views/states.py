@@ -80,6 +80,10 @@ def post_state():
 @app_views.route('/states/<string:state_id>',
                  methods=['PUT'], strict_slashes=False)
 def update_state(state_id=None):
+    """update state"""
+    header = request.headers.get("Content-Type")
+    if header != 'application/json':
+        return jsonify({"error": "Not a JSON"}), 400
     if state_id is None:
         abort(404)
     data = request.get_json()
@@ -93,4 +97,4 @@ def update_state(state_id=None):
                 k] != 'created_at' or obj[k] != ['updated_at']:
             obj[k] = v
     storage.save()
-    return (obj)
+    return (obj), 200
