@@ -1,0 +1,4 @@
+#!/usr/bin/python3
+"""Reviews api"""
+
+from models.review import Review
