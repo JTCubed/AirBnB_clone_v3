@@ -96,11 +96,11 @@ def update_rev(review_id):
         return jsonify({'error': 'Not a JSON'}), 400
     header = request.headers.get('Content-Type')
     if header != "application/json":
-        return jsonify({'error': 'Not a JSON'})
+        return jsonify({'error': 'Not a JSON'}), 400
 
     for k, v in resp.items():
-        if k not in ["id", "user_id", "place_id",
-                     "created_at", "updated_at"]:
+        if k not in ['id', 'user_id', 'place_id',
+                     'created_at', 'updated_at']:
             setattr(rev, k, v)
 #    storage.
     storage.save()
