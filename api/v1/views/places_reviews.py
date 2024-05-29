@@ -15,7 +15,7 @@ from models.place import Place
 def get_place_r(place_id):
     """returns a review by place_id"""
     place = storage.get(Place, place_id)
-    if place is None of place_id is None:
+    if place is None or place_id is None:
         abort(404)
     rev = storage.all(Review)
     lis = []
@@ -66,7 +66,7 @@ def create_rev(place_id):
         return jsonify({'error': 'Not a JSON'}), 400
 
     if 'user_id' not in resp.keys():
-        return jsonify('error': 'Missing user_id'), 400
+        return jsonify({'error': 'Missing user_id'}), 400
 
     user = storage.get(User, resp['user_id'])
     if user is None:
@@ -75,8 +75,9 @@ def create_rev(place_id):
     if 'text' not in resp.keys():
         return jsonify({'error': 'Missing text'}), 400
 
-    rev = Review('user_id'=resp['user_id'], 'text'=resp['text'],
-                 'place_id'=place_id)
+    rev = Review()
+    for k, v in resp.items():
+        setattr(rev, k, v)
     storage.new(rev)
     storage.save()
     return jsonify(rev.to_dict()), 201
