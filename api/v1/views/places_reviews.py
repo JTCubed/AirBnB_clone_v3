@@ -15,19 +15,19 @@ from models.place import Place
 def get_place_r(place_id):
     """returns a review by place_id"""
     place = storage.get(Place, place_id)
-    if place is None or place_id is None:
+    if place is None:
         abort(404)
     rev = storage.all(Review)
     lis = []
     for v in rev.values():
         if v.place_id == place_id:
             lis.append(v)
-    return jsonfy(lis.to_dict), 200
+    return jsonify(lis.to_dict()), 200
 
 
 @app_views.route('/reviews/<review_id>',
                  methods=['GET'], strict_slashes=False)
-def get_rev(review_id):
+def get_review(review_id):
     """return a review or 404 if not found"""
     rev = storage.get(Review, review_id)
     if rev is None:
@@ -38,7 +38,7 @@ def get_rev(review_id):
 
 @app_views.route('/reviews/<review_id>',
                  methods=['GET'], strict_slashes=False)
-def del_rev(review_id):
+def del_review(review_id):
     """deletes a review by <review_id>"""
     rev = storage.get(Review, review_id)
     if rev is None:
@@ -62,7 +62,7 @@ def create_rev(place_id):
         return jsonify({'error': 'Not a JSON'}), 400
 
     resp = request.get_json()
-    if resp in None:
+    if resp is None:
         return jsonify({'error': 'Not a JSON'}), 400
 
     if 'user_id' not in resp.keys():
@@ -101,7 +101,7 @@ def update_rev(review_id):
     for k, v in resp.items():
         if k not in ["id", "user_id", "place_id",
                      "created_at", "updated_at"]:
-            rev[k] = v
+            setattr(rev, k, v)
 #    storage.
     storage.save()
 
