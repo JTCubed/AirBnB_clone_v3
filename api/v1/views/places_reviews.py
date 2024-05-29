@@ -21,8 +21,11 @@ def get_place_r(place_id):
     lis = []
     for v in rev.values():
         if v.place_id == place_id:
-            lis.append(v)
-    return jsonify(lis.to_dict()), 200
+            lis.append(v.to_dict())
+    if len(lis) > 0:
+        return jsonify(lis), 200
+    else:
+        return jsonify({}), 200
 
 
 @app_views.route('/reviews/<review_id>',
@@ -44,7 +47,7 @@ def del_review(review_id):
     if rev is None:
         abort(404)
 
-    storage.delete(rev)
+    rev.delete()
     storage.save()
     return jsonify({}), 200
 
@@ -96,13 +99,13 @@ def update_rev(review_id):
         return jsonify({'error': 'Not a JSON'}), 400
     header = request.headers.get('Content-Type')
     if header != "application/json":
-        return jsonify({'error': 'Not a JSON'}), 400
+        return make_response(jsonify({'error': 'Not a JSON'}), 400)
 
     for k, v in resp.items():
         if k not in ['id', 'user_id', 'place_id',
                      'created_at', 'updated_at']:
             setattr(rev, k, v)
-#    storage.
+    storage.new(rev)
     storage.save()
 
     return jsonify(rev.to_dict()), 200
